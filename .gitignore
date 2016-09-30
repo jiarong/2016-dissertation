@@ -1,0 +1,16 @@
+*.dvi
+*.log
+*.bak
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ps
+*.eps
+*.pdf
+*.toc
+*.out
+
+bibdir
+dissertation-jiarong-guo.pdf
+main.tex-checkp-092216
