@@ -10,7 +10,10 @@
 *.pdf
 *.toc
 *.out
+*.lot
+*.lof
 
 bibdir
 dissertation-jiarong-guo.pdf
 main.tex-checkp-092216
+!/fig/*.pdf
