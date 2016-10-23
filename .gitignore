@@ -7,13 +7,16 @@
 *.idx
 *.ps
 *.eps
-*.pdf
 *.toc
 *.out
 *.lot
 *.lof
+*.pptx
+
+/*.pdf
+!/fig/*.pdf
 
 bibdir
 dissertation-jiarong-guo.pdf
 main.tex-checkp-092216
-!/fig/*.pdf
+
