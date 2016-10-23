@@ -205,36 +205,36 @@ Your acknowledgements here.
 \section{Introduction}
 
 Sequencing technology has advanced from Sanger sequencing to massive
-short read (next or second generation) sequencing such as 454 and
-Illumina and to massive long read (third generation) sequencing such
-as PacBio and Oxford NanoPore in the past ten years
+short read (``next'' or second generation) sequencing such as 454 and
+Illumina, and then again to massive long read (third generation) sequencing such
+as PacBio and Oxford Nanopore, just in the past ten years
 \cite{mardis_impact_2008,pettersson_generations_2009}. The second
-generation sequencing technolgies provides very high throughput and
-low sequencing error and already transformed biology
+generation sequencing technologies provides very high throughput and
+low sequencing error and transformed biology
 research. Meanwhile, third generation sequencing technologies are
-promising to provide long read alternatives in spite of high
+promising to provide long read alternatives, in spite of high
 sequencing error rate \cite{rhoads_pacbio_2015}.
 
-\textit{Shotgun metagenomics. } Metagenomes, the direct sequencing of
-DNA extract from environmental samples, open new ways to access the
-unculturable majority in microbiome. Amplicon sequencing based
-metagenomics are limited by lack of universal primer, primer bias and
+\textit{Shotgun metagenomics. } Metagenomics, the direct sequencing of
+DNA extracted from environmental samples, opens new ways to access the
+unculturable majority in microbiome. Amplicon sequencing or targeted
+metagenomics was limited by the lack of a universal primer set, primer bias, and
 PCR artifacts
 \cite{frank_critical_2008,haas_chimeric_2011,guo_microbial_2015}. However,
 shotgun sequencing produces reads from random DNA fragments from all
-genomes in the community and thus overcome the above problems and can
-provides a more complete picture of microbiome. Massive short read
+genomes in the community and thus can overcome the above problems,
+providing a more complete picture of the microbial community. Massive short read
 sequencing on shotgun metagenomes has advanced our knowledge about
-microbiome in various kinds of environments, of which the majority
+microbial community members in various kinds of environments, of which the majority
 still can not be cultured
 \cite{howe_tackling_2014,sunagawa_ocean_2015}.
 
-With large data generated from second generation data, data analyzes
+With the large data sets produced from second generation data, data analysis
 become the main challenge in many research projects
-\cite{qin_human_2010,pell_scaling_2012}. There are two mainly methods
-for short read data: read mapping and assembly. Read mapping requires
-reference sequence (genomes and genes) while assembly does not, which
-is a process to join reads of fragmented DNA to recover the sequence
+\cite{qin_human_2010,pell_scaling_2012}. There are two main methods
+for first-stage analysis of short read data: read mapping and assembly. Read mapping requires a
+reference sequence (genomes and genes) while assembly does not; assembly
+is a process that join reads of fragmented DNA to recover the sequence
 of the original full length DNA (usually chromosomes or genomes). In
 reality, assembly mostly does not produce complete genomes, but just
 longer sequences called contigs
@@ -243,42 +243,47 @@ merged into scaffolds by mate pair information. Contigs can be a
 consensus sequence from multiple sequences with high identities
 \cite{zerbino_velvet:_2008}. Thus common assemblies presented as fasta
 sequence format can be considered as hierarchical data structure.
+% CTB: what does this sentence mean?
 
+% @CTB: note that string graphs are different from OLC; string graphs
+% are more like de Bruijn graphs, but involve k-mers of many different sizes.
+% We'll have to rewrite this section.
 \textit{Assembly graphs. } Assembly outputs are usually linear
-sequences but the assembly process requires graph data structure and
-algorithms. Two most common data structures used for the assembly
-process are \textit{de brujin} graph and string graph.  The \textit{de
-  brujin} graph first chops reads into even smaller k-mers and then
-build a graph connecting k-mers that share k-1 bases, while the string
+sequences but the assembly process requires a connectivity graph and
+algorithms that operate on that graph to produce assembled contigs. Two of the most common data structures used for the assembly
+process are \textit{de Bruijn} graph and string graph.  The \textit{de
+  Bruijn} graph first chops reads into even smaller k-mers and then
+builds a graph connecting k-mers that share k-1 bases, while the string
 graph, also known as overlap-layout-consensus (OLC), first find
 overlaps (larger than a length cutoff) among all reads and then
 connect reads based on the overlapping information
 \cite{zerbino_velvet:_2008,simpson_efficient_2012}. In the string
 graph, overlap calculation requires all-against-all pairwise read
 comparison and thus is very expensive on CPU time. The \textit{de
-  brujin} graph is anti-intuitive by breaking down the reads but it
+  Bruijn} graph is unintuitive because it breaks down the reads but it
 achieves faster CPU time by avoiding the expensive all-against all
-pairwise comparisons since the connections among the k-mers are
-implicit since there are only eight possible neighboring k-mers for
-each k-mer by extending A, T, C, or G on both ends. In terms of memory
+pairwise comparisons since k-mer matches can be calculated very efficiently.
+In terms of memory
 cost, the string graph increase with sequencing depth while the
-\textit{de brujin} graph is not related to sequenced depth (only
+\textit{de Bruijn} graph is not related to sequenced depth (only
 determined by total genome size) \cite{li_comparison_2012}, if there
-is no sequencing errors. The \textit{de brujin} graph is very
+is no sequencing errors. The \textit{de Bruijn} graph is very
 sensitive to sequencing errors because each sequencing error can cause
 k spurious k-mers and greatly increase the complexity of the graph.
+% CTB: string graph and de bruijn graph are both extremely sensitive to
+% errors, and memory usage grows with both.
 
 The string graph works well with long reads by preserving the
 integrity of reads but does not scale with high depth data, whereas
-the \textit{de brujin} graph fits well with high depth coverage short
+the \textit{de Bruijn} graph fits well with high depth coverage short
 reads that second generation sequencing platform produces (454 and
-Illumina) and there was a boom of \textit{de brujin} graph assemblers,
+Illumina) and there was a boom of \textit{de Bruijn} graph assemblers,
 such as Velvet, ABySS, AllPaths and SOAPdenovo
 \cite{zerbino_velvet:_2008,simpson_abyss:_2009,butler_allpaths:_2008,luo_soapdenovo2:_2012}. Meanwhile,
 Simpson et al. have applied FM index derived from Burrows-Wheeler
 transform to find overlaps among reads and reduce the time complexity
 of string graph assembly to linear of genome size and independent of
-the sequencing depth, which makes string graph still an option with
+the sequencing depth, which makes string graphs an option with
 second generation sequencing \cite{simpson_efficient_2012}.
 
 \textit{Global assembly. } To analyze shotgun metagenomes, an
@@ -286,15 +291,15 @@ intuitive way is to first recover all genomes in the metagenomes. Here
 we call this method global assembly in contrast to gene targeted
 (local) assembly. Global assembly has become a common step for shotgun
 metagenomic analyzes and there are many metagenome assemblers
-published such as meta-velvet, IDBA-UD, and megahit
+published such as MetaVelvet, IDBA-UD, and MEGAHIT
 \cite{li_megahit:_2015,namiki_metavelvet:_2012,peng_idba-ud:_2012}.
-Although big improvement made in recent years on read utilization
+Although there have been many major improvements made in recent years with read utilization in assemblies
 \cite{li_megahit:_2015}, global assembly method is still limited by
-big challenges such as repeats, sequencing errors, uneven coverage and
-big data, especially for complex environments like soil
+challenges such as repeats, sequencing errors, uneven coverage and
+large data sets, especially for complex environments like soil
 \cite{howe_tackling_2014}. Moreover, global assembly does poorly on
 genes with conserved regions such SSU rRNA gene due to their complex
-local graph and typically collapses sequences with high identities
+local graph, and typically collapses sequences with high identities
 that are useful diversity analyzes
 \cite{guo_microbial_2015,miller_emirge:_2011}.
 
@@ -303,23 +308,22 @@ that are useful diversity analyzes
 Many studies only focus on important genes or pathways such as N cycle
 or antibiotic resistance genes so it is not necessary to assemble all
 the shotgun metagenomic data together. Gene targeted methods are also
-more computationally more efficient by focusing only reads identified
-as a certain gene. Here we cover several gene targeted methods that
+more computationally more efficient because they focus only on reads identified
+as a certain gene. Here we discuss several gene targeted methods that
 are assembly based methods or read based methods (no assembly
 involved) and group them by their targeted genes, SSU rRNA gene or
 functional (protein) gene.
 
 \textbf{SSU rRNA gene. } SSU rRNA gene is the golden standard as a
 phylogenetic marker for diversity analyzes
-\cite{lane_rapid_1985,huse_exploring_2008}. It also have the best
-reference sequences databases such as RDP and SILVA which can assist
-in taxonomy and diversity analyzes
+\cite{lane_rapid_1985,huse_exploring_2008}. It also has the most comprehensive
+reference sequences databases (e.g. RDP and SILVA) which are important
+for taxonomy and diversity analyzes
 \cite{cole_ribosomal_2014,quast_silva_2013}. Thus it is a gene of
 interest for most metagenomic studies. There are a few tools developed
 to extract the SSU rRNA gene fragments and/or assemble them into full
 length for further diversity analyzes
 \cite{miller_emirge:_2011,yuan_reconstructing_2015,guo_microbial_2015}.
-
 
 \textit{EMIRGE}
 
@@ -387,14 +391,14 @@ its path finding algorithm guided by paired end information to avoid
 chimeras. At last, partial assemblies shorter than the length cutoff
 are merged into longer ones by paired end information.
 
-String graph rather than \textit{de brujin} graph since multiple
+String graph rather than \textit{de Bruijn} graph since multiple
 conserved regions and variable regions in SSU rRNA gene combined with
 sequences from closely related strain cause the graphs to be very
 complex. Breaking down the sequences into smaller k-mers would make
 the graphs to be more complex and make it more difficult to find the
 right path of whole length SSU rRNA gene sequences.
 
-Although string graph less prone to chimeras than \textit{de brujin}
+Although string graph less prone to chimeras than \textit{de Bruijn}
 graph, SSU rRNA gene is still a difficult case for string graph
 assembly, because reads sharing overlaps do not necessarily mean they
 are from the same gene sequence due to highly conserved regions in the
@@ -465,11 +469,11 @@ provided by longer assembled sequences.
 
 \textit{Xander}
 
-Xander is a \textit{de brujin} graph assembler and the novel component
-it brings into the \textit{de brujin} graph is Hidden Markov Model
+Xander is a \textit{de Bruijn} graph assembler and the novel component
+it brings into the \textit{de Bruijn} graph is Hidden Markov Model
 (HMM) of protein sequences of the targeted gene, which can help guide
 the graph traversal and find the path for targeted genes. It first
-loads reads into a \textit{de brujin} graph using a probabilistic data
+loads reads into a \textit{de Bruijn} graph using a probabilistic data
 structure called bloom filter, which is commonly used to reduce the
 memory cost of large sequence data \cite{pell_scaling_2012}. Then it
 finds k-mers in nucleotide reference sequences of target genes in the
@@ -497,7 +501,7 @@ are included in the tool. It is fairly easy to add to more genes since
 it provides a tutorial for preparing the required HMMs and references
 (\url{https://github.com/rdpstaff/Xander\_assembler\#per-gene-preparation-requires-biological-insight}).
 
-In sum, Xander applies HMM on top of commonly used \textit{de brujin}
+In sum, Xander applies HMM on top of commonly used \textit{de Bruijn}
 graph as in most global metagenome assemblers. HMM guided graph
 traversal not only reduced the search space compared to global
 assembly but also provides probability measure on how likely a contig
@@ -525,7 +529,7 @@ of proteins sequences in UniProtKB and thus most genes are included
 \cite{finn_pfam_2016}.
 
 Both Xander and SAT-Assembler uses HMMs but in different ways. Xander
-loads all reads into the \textit{de brujin} graph and then uses HMMs
+loads all reads into the \textit{de Bruijn} graph and then uses HMMs
 to guide the graphs traversal. Thus the graph traversal are limited in
 a smaller part of the whole graph related the targeted gene. The graph
 traversal space is reduced but it still computationally expensive (CPU
@@ -683,7 +687,7 @@ on functional genes due to conserved but not domains.
     EMIRGE & SSU & Bowtie & EM    & Contig & No \\
     REAGO & SSU & CM    & String graph & Contig & No \\
     SSUsearch & SSU & HMM   & NA    & Read  & Yes \\
-    Xander & Functional & K-mer & \textit{De brujin} graph\& HMM & Contig & Yes \\
+    Xander & Functional & K-mer & \textit{de Bruijn} graph\& HMM & Contig & Yes \\
     SAT-Assembler & Functional & HMM   & String graph & Contig & No \\
     \bottomrule
     \end{tabular}%
@@ -703,10 +707,10 @@ reads. Especially for a single gene, it might be not necessary to
 assemble with long reads. Another way to think about the problem is
 that long read sequencing and assembly serves the same purpose to get
 long reads. Additionally, string graph may gain more popularity as in
-Sanger sequencing era compared to the dominance of \textit{de brujin}
+Sanger sequencing era compared to the dominance of \textit{de Bruijn}
 graph with short read data from second generation sequencing, which
 applies to both global assembly and gene targeted assembly. Meanwhile,
-short read sequencing and \textit{de brujin} graph based methods will
+short read sequencing and \textit{de Bruijn} graph based methods will
 continue to play important role due to the uncomparable sequencing
 depth of short read sequencing.
 
