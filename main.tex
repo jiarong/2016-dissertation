@@ -88,77 +88,77 @@
 \begin{abstract}
   % Your abstract goes here.  Master's 1 page max. PhD 2 page max.
   
-Soil microbes form beneficial association with crops in rhizosphere
-and also play a major role in ecosystem functions, such as N and C
-cycle. Thus large-scale plantation of biofuel crops will have
-significant impact on ecosystem functions regionally and beyond.  In
-recently years, advance in high throughput sequencing technologies has
-enabled metagenomics, which open new ways to access the unknown
-majority in microbiology while post great challenges on data analysis
-due to the big data size and short read length of sequences.
+Soil microbes form beneficial associations with crops in the rhizosphere
+and also play a major role in ecosystem functions, such as the N and C
+cycles. Thus large-scale cultivation of biofuel crops will have a
+significant impact on ecosystem functions regionally and globally.  In
+recent years, advances in high throughput sequencing technologies have
+enabled metagenomics, which in turn opens new ways to access the unknown
+majority in microbiology while posing great challenges in data analysis
+due to the large data size and short read length of sequencing data sets.
 
-In our rhizophere project, we generated about 1 Tb shotgun metagenomic
+In our rhizophere project, we generated about 1 Tb of shotgun metagenomic
 data from rhizophere soil samples of three biofuel crops.  In this
-dissertation, how to make sense of the rhizosphere metagenomic data
-with a focus on N cycle is my pivoting problem. The first chapter is a
-review of gene targeted methods for shotgun metagenomic data due to my
-focus on N cycle genes
+dissertation, my central question is how to make sense of the rhizosphere metagenomic data, with a focus on N cycle genes.
+The first chapter is a
+review of gene targeted methods for analyzing shotgun metagenomic data.
 
-The second chapter is method development on efficient methods that
-scale with large shotgun metagenomic data biological Shotgun
-metagenomic sequencing does not depend on gene-targeted primers or PCR
+The second chapter develops a method that improves the speed with which
+we can find rRNA genes in large shotgun metagenome data sets.
+Shotgun
+metagenome sequencing does not depend on gene-targeted primers or PCR
 amplification and thus is not affected by primer bias or
 chimeras. However, searching rRNA genes from large shotgun Illumina
 dataset is computationally expensive and there is no existing approach
 for unsupervised community analysis of SSU rRNA gene fragments
 retrieved from shotgun data. I present a pipeline, SSUsearch, to
 achieve faster identification of short subunit rRNA gene fragments and
-enabled unsupervised community analysis with shotgun data. It also
+enabled unsupervised community analysis with shotgun data. The pipeline also
 includes classification and copy number correction, and the output can
 be used by traditional amplicon analysis platforms. Shotgun metagenome
 data using this pipeline yielded higher diversity estimates than
 amplicon data but retained the grouping of samples in ordination
 analysis. We applied to this pipeline to soil samples with paired
-shotgun and amplicon data, and confirmed bias against Verrucomicrobia
-in a commonly used V6-V8 primer set as well as discovering likely bias
+shotgun and amplicon data, and confirmed the known bias against Verrucomicrobia
+in a commonly used V6-V8 primer set as well as discovering likely biases
 against Actinobacteria and for Verrucomicrobia in a commonly used V4
 primer set.
 
-Further, I explore an alternative single copy and protein coding
-phylogenetic marker \textit{rplB} in the third chapter as SSU rRNA
-gene, the current gold standard markers, has its drawbacks such as
-multiple copies in the same genomes and low resolution on strain
-level. I demonstrate that \textit{rplB}, a single copy protein coding
+In the third chapter, I explore an alternative single copy and protein coding
+phylogenetic marker \textit{rplB}.  SSU rRNA
+genes, the current gold standard markers, have several drawbacks, including
+multiple copies in the same genomes and low resolution for differentiating strains. I demonstrate that \textit{rplB}, a single copy protein coding
 gene, can provide finer resolution to identify low level taxonomy such
-as species and strains than SSU rRNA gene and also finer scale (OTU)
+as species and strains than the SSU rRNA gene and also finer scale (OTU)
 diversity analysis. Thus single copy protein coding genes such as
-\textit{rplB} have great potential to complement or even replace SSU
+\textit{rplB} have a great potential to complement or even replace SSU
 rRNA gene as a phylogenetic marker.
 
 In the fourth chapter, I come back to my central biological question
-on rhizosphere metagenomics: whch members and genes are selected in
-rhizosphere and the impact of different biofuel crops on their
-rhizosphere microbiome.  I compared the rhizosphere metagenomes at
+on rhizosphere metagenomics: which members and genes are selected in
+the rhizosphere, and what is the impact of different biofuel crops on their
+rhizosphere microbiome?  I compare the rhizosphere metagenomes for
 overall community structure (SSU rRNA gene), overall function
-(annotation from global assembly), and N cycle genes (from Xander, a
+(annotation from global assembly), and N cycle genes (using Xander, a
 targeted gene assembly tool). All three levels showed corn had a
 significantly different community from Miscanthus and switchgrass
 (except for AOA), and that the two perennials showed a trend of
+% what is AOA here?
 separation. In terms of life history strategy, the corn rhizosphere
 was enriched with more copiotrophs while the perennials were enriched
-with oligotrophs, which is further supported by higher abundance of
-genes in ``Carbohydrates'' subsystem category and higher
+with oligotrophs.  This is further supported by higher abundance of
+genes in the ``Carbohydrates'' subsystem category and higher
 fungi/bacteria ratios. Additionally, the nitrogen fixing community of
 corn was dominated by nifH genes most closely affiliated to
 \textit{Rhizobium} (perhaps a legacy from prior legume crops) while
 the perennials had nifH sequences most related to
 \textit{Coraliomargarita}, \textit{Novosphingobium} and
-\textit{Azospirillum}, indicating that the perennials selected
-independent beneficial members. Moreover, higher numbers of genes for
-nitrogen fixation and lower number of genes for nitrite reduction
+\textit{Azospirillum}, indicating that the perennials independently selected
+beneficial members. Moreover, higher numbers of nitrogen fixation genes
+and lower number of nitrite reduction genes
 suggest better nitrogen sustainability of the perennials. These data
-indicate perennial bioenergy crops have advantages over corn in higher
-microbial species richness and functional diversity and in selecting
+indicate that perennial bioenergy crops have advantages over corn in higher
+microbial species richness and functional diversity as well as in selecting
 members with beneficial traits, consistent with a higher level of
 sustainability of perennial biofuel crops.
 
