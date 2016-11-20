@@ -208,25 +208,24 @@ Sequencing technology has advanced from Sanger sequencing to massive
 short read (``next'' or second generation) sequencing such as 454 and
 Illumina, and then again to massive long read (third generation) sequencing such
 as PacBio and Oxford Nanopore, just in the past ten years
-\cite{mardis_impact_2008,pettersson_generations_2009}. The second
-generation sequencing technologies provides very high throughput and
-low sequencing error and transformed biology
-research. Meanwhile, third generation sequencing technologies are
-promising to provide long read alternatives, in spite of high
-sequencing error rate \cite{rhoads_pacbio_2015}.
+\cite{mardis_impact_2008,pettersson_generations_2009}. Second
+generation sequencing technologies provide very high throughput and
+low sequencing error, and transformed biology
+research with their low cost and large amounts of data. Third generation sequencing technologies are
+promising to provide long read alternatives to second-generation technology, at the cost of higher
+sequencing error rates \cite{rhoads_pacbio_2015}.
 
 \textit{Shotgun metagenomics. } Metagenomics, the direct sequencing of
-DNA extracted from environmental samples, opens new ways to access the
-unculturable majority in microbiome. Amplicon sequencing or targeted
-metagenomics was limited by the lack of a universal primer set, primer bias, and
+DNA extracted from environmental samples, provides new ways to access the
+unculturable majority in microbiome studies.  Techniques based on amplicon sequencing or targeted
+metagenomics are limited by the lack of a universal primer set and the presence of both primer bias and
 PCR artifacts
-\cite{frank_critical_2008,haas_chimeric_2011,guo_microbial_2015}. However,
-shotgun sequencing produces reads from random DNA fragments from all
-genomes in the community and thus can overcome the above problems,
+\cite{frank_critical_2008,haas_chimeric_2011,guo_microbial_2015}. Since
+metagenome shotgun sequencing samples from all
+genomes in the community, it can potentially overcome these problems,
 providing a more complete picture of the microbial community. Massive short read
 sequencing on shotgun metagenomes has advanced our knowledge about
-microbial community members in various kinds of environments, of which the majority
-still can not be cultured
+microbial community members in many environments
 \cite{howe_tackling_2014,sunagawa_ocean_2015}.
 
 With the large data sets produced from second generation data, data analysis
@@ -235,19 +234,20 @@ become the main challenge in many research projects
 for first-stage analysis of short read data: read mapping and assembly. Read mapping requires a
 reference sequence (genomes and genes) while assembly does not; assembly
 is a process that join reads of fragmented DNA to recover the sequence
-of the original full length DNA (usually chromosomes or genomes). In
-reality, assembly mostly does not produce complete genomes, but just
+of the original full length DNA (usually chromosomes or genomes). For several
+reasons, metagenome assembly generally does not produce complete genomes, but just
 longer sequences called contigs
 \cite{qin_human_2010,howe_tackling_2014}, which could be further
 merged into scaffolds by mate pair information. Contigs can be a
 consensus sequence from multiple sequences with high identities
 \cite{zerbino_velvet:_2008}. Thus common assemblies presented as fasta
 sequence format can be considered as hierarchical data structure.
-% CTB: what does this sentence mean?
+(CTB: what does this sentence mean?)
 
-% @CTB: note that string graphs are different from OLC; string graphs
-% are more like de Bruijn graphs, but involve k-mers of many different sizes.
-% We'll have to rewrite this section.
+@CTB: note that string graphs are different from OLC; string graphs
+are more like de Bruijn graphs, but involve k-mers of many different sizes.
+We'll have to rewrite this next section.
+
 \textit{Assembly graphs. } Assembly outputs are usually linear
 sequences but the assembly process requires a connectivity graph and
 algorithms that operate on that graph to produce assembled contigs. Two of the most common data structures used for the assembly
@@ -286,38 +286,38 @@ of string graph assembly to linear of genome size and independent of
 the sequencing depth, which makes string graphs an option with
 second generation sequencing \cite{simpson_efficient_2012}.
 
-\textit{Global assembly. } To analyze shotgun metagenomes, an
-intuitive way is to first recover all genomes in the metagenomes. Here
+\textit{Global assembly. } In analyzing shotgun metagenomes, an
+intuitive approach is to first recover all genomes in the metagenomes. Here
 we call this method global assembly in contrast to gene targeted
 (local) assembly. Global assembly has become a common step for shotgun
 metagenomic analyzes and there are many metagenome assemblers
 published such as MetaVelvet, IDBA-UD, and MEGAHIT
 \cite{li_megahit:_2015,namiki_metavelvet:_2012,peng_idba-ud:_2012}.
 Although there have been many major improvements made in recent years with read utilization in assemblies
-\cite{li_megahit:_2015}, global assembly method is still limited by
-challenges such as repeats, sequencing errors, uneven coverage and
+\cite{li_megahit:_2015}, global assembly results are still limited by
+challenges such as repeats, sequencing errors, low coverage and
 large data sets, especially for complex environments like soil
 \cite{howe_tackling_2014}. Moreover, global assembly does poorly on
-genes with conserved regions such SSU rRNA gene due to their complex
-local graph, and typically collapses sequences with high identities
-that are useful diversity analyzes
+genes with conserved regions such SSU rRNA gene due to the complexity
+this introduces in the assembly graph; typically, global assembly
+collapses sequences with high identities
+that are useful for diversity analysis
 \cite{guo_microbial_2015,miller_emirge:_2011}.
 
 \section{Gene targeted methods in shotgun metagenomics}
 
 Many studies only focus on important genes or pathways such as N cycle
-or antibiotic resistance genes so it is not necessary to assemble all
-the shotgun metagenomic data together. Gene targeted methods are also
+or antibiotic resistance genes so global assembly is not necessary
+for these studies.
+Gene targeted methods can also be
 more computationally more efficient because they focus only on reads identified
 as a certain gene. Here we discuss several gene targeted methods that
-are assembly based methods or read based methods (no assembly
-involved) and group them by their targeted genes, SSU rRNA gene or
-functional (protein) gene.
+are assembly- or read-based methods and group them by their desired output -- SSU rRNA gene or functional (protein) gene.
 
-\textbf{SSU rRNA gene. } SSU rRNA gene is the golden standard as a
+\textbf{SSU rRNA gene. } SSU rRNA gene is the standard
 phylogenetic marker for diversity analyzes
 \cite{lane_rapid_1985,huse_exploring_2008}. It also has the most comprehensive
-reference sequences databases (e.g. RDP and SILVA) which are important
+reference sequence databases (RDP and SILVA) which are important
 for taxonomy and diversity analyzes
 \cite{cole_ribosomal_2014,quast_silva_2013}. Thus it is a gene of
 interest for most metagenomic studies. There are a few tools developed
@@ -327,54 +327,54 @@ length for further diversity analyzes
 
 \textit{EMIRGE}
 
-
-SSU rRNA gene is difficult to assemble using global assembly methods
-because it has highly conserved regions and also hyper variable
-regions and thus forms complex graph. EMIRGE overcomes the problem by
+SSU rRNA genes are difficult to assemble using global assembly methods
+because they have both highly conserved regions and also hyper variable
+regions; this in turn forms a complex graph structure that it is hard
+for assemblers to disentangle. EMIRGE overcomes this problem by
 avoiding assembly, and use mapping based strategy instead. It applies
-expectation maximization (EM) algorithm to recover full length SSU
-rRNA gene sequences. It requires raw reads in fastq format (either
+an expectation maximization (EM) algorithm to recover full length SSU
+rRNA gene sequences. It takes raw reads in FASTQ format (either
 paired ends or single end), a SSU rRNA gene reference database in
-fastq format and Bowtie index of the reference database as
+FASTQ format, and a Bowtie index of the reference database as
 input. First, reads are mapped to the references by Bowtie
-\cite{langmead_aligning_2010}. Second, it runs EM algorithm including
-expectation step and maximization step. The expectation step
-calculates the probability a read is from a reference sequence and
+\cite{langmead_aligning_2010}. Second, EMIRGE runs an EM algorithm.
+The expectation step
+calculates the probability a read is from a reference sequence and th
 maximization step modifies the reference sequences based on the most
-frequent base at each position from read mapping and also calculates
-the relative abundances of each reference sequence. Then the above
+frequent base at each position from read mapping while also calculating
+the relative abundance of each reference sequence. Then the above
 mapping, expectation, and maximization steps are repeated until the
-reference sequences and their relative abundances stabilize. As
-default, EMIRGE stops after 40 iterations if reference sequences and
-relative abundances does not stabilize. For complex communities, it is
-recommended to increase the number of iterations. During an iteration,
+reference sequences and their relative abundances stabilize. By
+default, EMIRGE stops after 40 iterations if the reference sequences and
+relative abundances do not stabilize. For complex communities, the authors
+recommend increasing the number of iterations. During an iteration,
 two references are merged if they become very similar and their
 identity exceeds certain threshold (default is 0.97). On the other
-hand, a sequence is split into two if SNP (single nucleotide
-polymorphisms) fractions exceeds a threshold (default is 0.04) based
+hand, a sequence is split into two if the variant fraction exceeds a threshold (default of 0.04) based
 on read mapping, suggesting two different strains have the best hit on
 the same reference.
 
 The most important contribution of EMIRGE is that it provides a
-probability framework to address the uncertainty of mapping SSU rRNA
+probabilistic framework to address the uncertainty of mapping SSU rRNA
 gene fragments to the referece sequences. For example, some fragments
-from conserved regions could be mapped to many references, and even
-fragments from variable regions could be mapped to many references if
-multiple closely related strains are present either due sequencing
-error or missing references. This probability frame enables references
-to merge and to diverge rather than keep the it as composite or
+from conserved regions could map to many references, and even
+fragments from variable regions could map to many references if
+multiple closely related strains are present.
+This probabilistic framing enables references
+to merge and to diverge rather than be kept as composite or
 consensus sequences from different strains as the global assemblers
-do. The final sequence output also have probability that can give user
-confidence information on the data.
+do. The final sequence output also provides a probability that can guide
+user confidence on the results.
 
-Similarity to global assembly tools, EMIRGE also has chimera issue
-\cite{rajeev_dynamic_2013}. The chimeric sequences in the reference
-database might be passed to reconstructed SSU rRNA gene if there are
+As with global assembly tools, EMIRGE also sometimes produces chimeric
+sequences 
+\cite{rajeev_dynamic_2013}. Erroneously chimeric sequences in the reference
+database might be passed on to the reconstructed SSU rRNA genes if there are
 reads mapped across the chimeric reference. Another scenario is that
 SSU rRNA gene sequences from closely related trains but with low
-coverage might form chimera because there are not enough reads mapped
-to their closest reference so that EMIRGE does not have enough
-information on SNP fraction to split the reference into two or more
+coverage might form chimerae because there are not enough reads mapped
+to their closest reference; in this case, EMIRGE does not have enough
+information on variant fractions to split the reference into two or more
 candidate sequences.
 
 \textit{REAGO}
@@ -711,7 +711,7 @@ Sanger sequencing era compared to the dominance of \textit{de Bruijn}
 graph with short read data from second generation sequencing, which
 applies to both global assembly and gene targeted assembly. Meanwhile,
 short read sequencing and \textit{de Bruijn} graph based methods will
-continue to play important role due to the uncomparable sequencing
+continue to play an important role in metagenomics due to the high sequencing
 depth of short read sequencing.
 
 
