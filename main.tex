@@ -379,49 +379,48 @@ candidate sequences.
 
 \textit{REAGO}
 
-Unlike EMIRGE (mapping based), REAGO is a assembly based method. It
-first identify the SSU rRNA gene reads with a profile called
-covariance model (CM) using INFERNAL, which is secondary structure
-aware \cite{nawrocki_infernal_2009}. Then the identified SSU rRNA gene
-reads are used to build string graph by finding overlap among reads,
-which are further applied with graph reduction techniques such as
+REAGO is another method for reconstructing SSU rRNA content from a sample,
+but it is assembly based, unlike EMIRGE.
+REAGO first identifies the SSU rRNA gene reads with a profile called
+covariance model (CM) using INFERNAL, which is aware of secondary structure
+\cite{nawrocki_infernal_2009}. Then the identified SSU rRNA gene
+reads are used to build a string graph by finding overlaps among reads.
+This string graph is reduced with 
 sequencing error correction, node collapsing, topology based pruning
 and taxonomy based bad edge removal. Then sequences are assembled by
-its path finding algorithm guided by paired end information to avoid
-chimeras. At last, partial assemblies shorter than the length cutoff
+a path finding algorithm guided by paired end information to avoid
+chimeras. Finally, partial assemblies shorter than the length cutoff
 are merged into longer ones by paired end information.
 
-String graph rather than \textit{de Bruijn} graph since multiple
-conserved regions and variable regions in SSU rRNA gene combined with
-sequences from closely related strain cause the graphs to be very
-complex. Breaking down the sequences into smaller k-mers would make
-the graphs to be more complex and make it more difficult to find the
-right path of whole length SSU rRNA gene sequences.
+REAGO uses string graphs rather than \textit{de Bruijn} graphs since
+the multiple conserved regions and variable regions in the SSU rRNA
+gene cause the
+graphs to be very complex. Because De Bruijn graphs break reads down
+into k-mers, they deal poorly with this kind of complexity.
 
-Although string graph less prone to chimeras than \textit{de Bruijn}
-graph, SSU rRNA gene is still a difficult case for string graph
-assembly, because reads sharing overlaps do not necessarily mean they
-are from the same gene sequence due to highly conserved regions in the
-gene. REAGO utilizes taxonomy information of each node and paired end
-information to find the correct paths for assemblies and avoid
-chimeras. In spite of the advanced algorithm in resolving chimeras,
-REAGO is very slow in the search CM search step.
+Although this string graph approach is less prone to chimeras than
+\textit{de Bruijn} graphs, SSU rRNA gene is still a particularly
+difficult challenge for string graph assembly.  This is because reads sharing
+overlaps are not necessarily from the same gene sequence
+due to the highly conservation of the SSU gene. REAGO utilizes taxonomy
+information from each node along with paired end information to find the
+correct paths for assemblies and reduec chimeras. Despite the
+advanced algorithm used to resolve chimeras, REAGO is very slow in the
+search CM search step.
 
 \textit{SSUsearch}
 
-Since SSU rRNA gene is still difficult to assembly due to its multiple
-highly conserved and hyper variable regions, there are also
-alternatives avoid assembling after all and do diversity analyzes
-based on the short reads. The reason is that Illunmina HiSeq reads can
-be as long as close to 300 bp after merging paired ends, which is
-comparable to amplicon sequences. Early pilot amplicon based studies
-has reads at about 80 bp and there are studies showing that 80 bp is
-enough for common microbial diversity analyzes
-\cite{sogin_microbial_2006}. Thus reads from Illunmina HiSeq platform
-is long enough for common diversity analyzes.
+Since the SSU rRNA gene is difficult to assemble, there are also
+alternatives that avoid assembly and do diversity analyzes directly on
+the short reads from shotgun sequence. As Illumina reads increase in
+length past 300 bp, merging paired ends yields sequences that are
+comparable to amplicon sequences in their length and specificity.
+In particular, early pilot amplicon based studies
+used 80 bp reads, which is sufficient for common microbial diversity analyzes
+\cite{sogin_microbial_2006}.
 
-SSUsearch is such tool that uses reads directly for diversity
-analyzes. It includes two main steps. The first step is the fast
+SSUsearch is a tool that uses reads directly for diversity
+analyzes. It includes two main steps. The first step isfast
 identification of SSU rRNA gene fragments using HMMER, which shows
 significant speed and memory improvement compared to other similar
 tools such as BLAST, ribopicker, and meta-rna
@@ -429,9 +428,12 @@ tools such as BLAST, ribopicker, and meta-rna
 second step is the selection of reads mapped to a specific region (V4,
 \textit{E. coli} position: 577 to 727 by default) so all reads have
 overlaps with each other. Then those reads can be further used for
-typical amplicon-like diversity analyzes as provided in Mothur and
+typical amplicon-like diversity analyzes, e.g. as provided in Mothur and
 QIIME \cite{schloss_introducing_2009,kuczynski_using_2012}.
 
+(@CTB want to be careful about saying ``only tool'' or ``best tool'';
+maybe ``has many advantages''? Also, this section changes dramatically
+in tone and detail from previous ones.)
 SSUsearch is the only pipeline that enables de novo OTU (Operational
 Taxonomic Unit) based diversity analyzes with Illumina shotgun
 sequencing data. There is another tool, PhylOTU, also does de novo OTU
@@ -456,118 +458,121 @@ INFERNO (cmsearch) is much slower than HMMER (hmmsearch), the
 sensitivity and specificity of search results of the two has not been
 compared on simulated and real metagenomic data.
 
-\textbf{Functional genes.}  Since functional gene can be analyzed in
-protein space and analyzes such homology search and alignment are
-sensitive and accurate with protein sequences due to third base wobble
-in codons, thus their tools are different from SSU rRNA gene. An other
-difference of functional genes from SSU rRNA gene is that conserved
-domain in some functional genes are not unique to those genes. Thus
-short reads based method does not work well since reads from other
-genes could be incorrectly aligned to the target gene. Therefore
-assembly based methods are more suitable due to high confidence
-provided by longer assembled sequences.
+\textbf{Functional genes.}  Since functional genes can be analyzed in
+protein space, analyses such as homology search and gene alignment are
+done with different tools than for SSU rRNA genes, which are analyzed
+in nucleotide space.  However, because protein domains are often
+shared between many genes, directly aligning short reads may not work
+well because reads can be incorrectly assigned.  Therefore assembly
+based methods are more suitable due to high confidence provided by
+longer assembled sequences.
+(@CTB note that this is going to be a bit controversial. You should
+be prepared to back this up.)
 
 \textit{Xander}
 
-Xander is a \textit{de Bruijn} graph assembler and the novel component
-it brings into the \textit{de Bruijn} graph is Hidden Markov Model
-(HMM) of protein sequences of the targeted gene, which can help guide
-the graph traversal and find the path for targeted genes. It first
-loads reads into a \textit{de Bruijn} graph using a probabilistic data
-structure called bloom filter, which is commonly used to reduce the
+Xander is a gene-targeted \textit{de Bruijn} graph assembler that uses
+Hidden Markov Models
+(HMMs) of protein sequences of the targeted gene to guide graph traversal.
+Xander first
+loads reads into a \textit{de Bruijn} graph using a low-memory probabilistic data
+structure called a Bloom filter, which is commonly used to reduce the
 memory cost of large sequence data \cite{pell_scaling_2012}. Then it
 finds k-mers in nucleotide reference sequences of target genes in the
-graph as the starting point for graph traversal. The A forward HMM and
-reverse HMM built from the aligned protein sequences and the reverse
-of the aligned protein sequences respectively enables the graph
+graph as the starting point for graph traversal. A forward HMM and
+reverse HMM built respectively from the aligned protein sequences and the reverse
+of the aligned protein sequences enables graph
 traversal in both directions from starting k-mers. Guided by the
-protein HMM, the graph traversal advances three nodes (k-mers) at
-time, which equals to one codon. Xander use A* algorithm to find the
-path with highest score according the protein HMM. Further, the
-candidate assemble sequences are clustered at 99 \% to remove
-redundant ones and then chimeras are removed by UCHIME
+protein HMM, the graph traversal advances three bases at a
+time, which equals to one codon. Xander use an A* algorithm to find the
+path with the highest score according the protein HMM. Further, the
+candidate assembled sequences are then clustered at 99 \% to remove
+redundant sequences, and chimeras are removed by UCHIME
 \cite{edgar_uchime_2011}. Xander also has post-assembly utilities
-including assembled sequence coverage calculation, taxonomy assignment
+including assembled sequence coverage calculation and taxonomy assignment
 by nearest neighbor.
 
 To run Xander, protein HMMs (both forward and reverse) and a large set
 of protein and nucleotide reference sequences with taxonomy
-information are required. Currently, Xander focuses on N cycle genes
-and the required HMMs and reference sequences for rplB (a single copy
+information are required. Currently, Xander focuses on
+rplB (a single copy
 house keeping gene) and N cycle genes including AOA, AOB,
 \textit{nifH}, \textit{nirK}, \textit{nirS}, \textit{norB\_cNor},
 \textit{norB\_qNor}, \textit{nosZ\_cladeI} and \textit{nosZ\_cladeII}
-are included in the tool. It is fairly easy to add to more genes since
-it provides a tutorial for preparing the required HMMs and references
+are included in the tool. It is fairly easy to add to more genes
 (\url{https://github.com/rdpstaff/Xander\_assembler\#per-gene-preparation-requires-biological-insight}).
 
-In sum, Xander applies HMM on top of commonly used \textit{de Bruijn}
-graph as in most global metagenome assemblers. HMM guided graph
-traversal not only reduced the search space compared to global
-assembly but also provides probability measure on how likely a contig
-is from the model and thus reduce chimeras.
+In sum, Xander applies HMM search on top of the commonly used
+\textit{de Bruijn} graph paradigm. HMM guided graph traversal not only
+reduced the search space compared to global assembly but also provides
+a probability measure on how likely a contig based on the model, and
+thus reduce chimeras.
 
 \textit{SAT-Assembler}
 
-Similar to Xander, SAT-Assembler also use HMM but it is a string graph
-based assembler. It is from the same group as REAGO and have similar
-design that includes two main steps. The first step is searching for
-target gene fragment in reads using HMM with HMMER3, which greatly
-reduces the input data size for the next step. The second step is
-building string graph for each targeted gene and assemble. The read
-alignment location information the HMM model from the first step is
+Similar to Xander, SAT-Assembler also uses HMMs but it is a string graph
+based assembler. It is from the same group as REAGO and has a similar
+design that includes two main steps. The first step searches for
+target gene fragments in reads using HMM with HMMER3, which greatly
+reduces the input data size for the next step. The second step builds
+string graphs for each targeted gene and then assembles. The read
+alignment location information to the HMM model from the first step is
 used to help guide overlap calculation among reads. Multiple types of
 information such as paired end, coverage, and alignment location on
-the HMM are used to guide graph traversal and avoid chimeras. At last,
+the HMM are used to guide graph traversal and avoid chimeras. At the end,
 contigs are merged into scaffolds using paired end information.  To
-run SAT-Assembler, A file containing HMMs of targeted genes is
+run SAT-Assembler, a file containing HMMs of targeted genes is
 required. The HMM for a specific gene can be built from aligned
 protein sequences of the gene by hmmbuild command in
-HMMER3. Additionally, SAT-Assembler also works with HMMs in Pfam
+HMMER3. Additionally, SAT-Assembler also works with HMMs in the Pfam
 database, which has 16306 HMMs in version 30.0 and covers about 80\%
-of proteins sequences in UniProtKB and thus most genes are included
+of proteins sequences in UniProtKB 
 \cite{finn_pfam_2016}.
 
 Both Xander and SAT-Assembler uses HMMs but in different ways. Xander
 loads all reads into the \textit{de Bruijn} graph and then uses HMMs
-to guide the graphs traversal. Thus the graph traversal are limited in
-a smaller part of the whole graph related the targeted gene. The graph
+to guide the graphs traversal. Thus the graph traversal is limited to
+a smaller part of the whole graph related to the targeted gene. The graph
 traversal space is reduced but it still computationally expensive (CPU
 time and memory) to load all reads into the graph and identify the
-starting k-mers in the large graph.  On the other hand, SAT-Assembler
+starting k-mers.  On the other hand, SAT-Assembler
 only uses HMMs to identify the reads as target gene fragments, which
-are further used to build the graph. Since the reads belong to a
-target gene are usually very small part of total, the resulting graph
-is relative small and thus the computational cost (both CPU time and
-memory) for graph building and graph traversal are effectively
-reduced. SAT-Assembler only applies paired end and coverage
-information but not HMM to guide graph traversal. Thus two tools can
-learn from each other to make improvements.  Moreover, HMM search step
-also provides the alignment location information to speed up the
-overlap calculation of string graph and also assists establishing the
-correct connection among reads from low abundance members with low
-sequencing depth.  Although the search step is critical in reducing
-the problem size, it still is the bottle neck step of
+are then used to build a much smaller graph.
+SAT-Assembler applies paired end and coverage
+information but not HMMs to guide graph traversal.
+
+These two tools could be combined to make some improvements.
+The HMM search step
+provides the alignment location information to speed up the
+overlap calculation of string graph and also assists in establishing the
+correct connection among reads with low coverage.
+Although the search step is critical to reducing
+the problem size, it is still the bottle neck step of
 SAT-Assembler. HMM based profile search provides a faster and more
-effective way to search the gene fragments compare to the other type
-of search, pairwise alignment, such as BLAST, because each HMM query
-is equivalent to many sequences belong to that protein group and thus
-HMM based profile search greatly reduced the query size. Additionally,
+effective way to search the gene fragments compared to other types
+of search, e.g. pairwise alignment such as BLAST, because each HMM query
+is an aggregate formed from many sequences and thus the query size
+is greatly reduced.
+
+(Put this somewhere: Additionally,
 HMM based profile search can improve the sensitivity of remote related
-protein identification.
+protein identification.)
 
 \section{Significant issues with gene targeted methods}
 
-\textbf{Reference sequences. } Among all the tools mentioned, a
-certain type of reference sequences are required, either HMM, CM, or a
+Gene targeted methods face many significant challenges:
+
+\textbf{Reference dependency.} For all the tools mentioned, a certain
+type of reference information is required, either HMM, CM, or a
 collection of gene sequences with associated taxonomy
 information. Thus the quality and number of the references is key to
-the performance of these tools. SSU rRNA gene has accumulated millions
-of references sequences and specially maintained in databases such RDP
-and SILVA \cite{cole_ribosomal_2014,quast_silva_2013}, which provides
-rich phylogenetic context for diversity analyzes such as taxonomy
-assignment and chimera check, but functional genes still face
-challenges in reference sequences.
+the performance of these tools. Here, the SSU rRNA gene has
+accumulated millions of reference sequences collected in 
+databases such RDP and SILVA
+\cite{cole_ribosomal_2014,quast_silva_2013}; this provides rich
+phylogenetic context for diversity analyzes such as taxonomy
+assignment and chimera check.  In comparison, functional
+genes are still lacking in reference sequences.
 
 \textit{Lacking reference sequences for functional genes. }
 
@@ -575,30 +580,30 @@ There are two categories of functional genes, genes coding for
 critical ecosystem functions such as N cycle genes, and universal
 protein coding phylogenetic markers such as \textit{rplB},
 \textit{rpoB} and \textit{recA}, which are also important since they
-are has higher resolution for species identification than SSU rRNA
-gene and also they single copy
-\cite{case_use_2007,roux_comparison_2011}, while SSU rRNA gene has
-multiple copies in a genome. As microbial ecology moves beyond
+have higher resolution for species identification than SSU rRNA
+gene and are also single copy
+\cite{case_use_2007,roux_comparison_2011}, unlike SSU rRNA genes.
+As microbial ecology moves beyond
 taxonomy and community structure to ecosystem functions, a large
 number of reference sequences for functional genes are also
-needed. Unlike SSU rRNA gene, it is more difficult to maintain
+needed. Unlike SSU rRNA genes, it is more difficult to maintain
 databases of functional genes because there are too many of them and
 thus the effort has to be distributed to groups with special interest
-in certain genes. One effort in this direction is RDP FunGene
+in certain genes. One effort in this direction is the RDP FunGene
 pipeline, which provides a platform for individual researchers to
-maintain functional gene database in a semi-automatic ways. As with
-SSU rRNA gene, there are two main source of reference sequences. The
+maintain functional gene databases in a semi-automatic ways. As with
+the SSU rRNA gene, there are two main source of reference sequences. The
 first source is whole length genes from genomes (about 60000 in NCBI
 RefSeq) and the second one is partial gene sequences amplified by
 primers (the majority). The number of sequenced genomes are
 accumulating fast since second generation sequencing started, so we
-are making good progresses on the first source, although more efforts
-on trains with ecosystem functions and phylogenetically rare ones are
-needed. For the second source, there are already many studies
+are making good progress on the first source, although more efforts
+to extract genes for ecosystem functions in phylogenetically undersampled
+regions of the taxonomy are needed. For the second source, there are already many studies
 targeting functional genes
-\cite{penton_functional_2013,hai_quantification_2009,treusch_novel_2005,huang_biodiversity_2011}. More
-effort on database curation is needed. Additionally, primer evaluation
-to find optimal primers is also needed. An successful example of such
+\cite{penton_functional_2013,hai_quantification_2009,treusch_novel_2005,huang_biodiversity_2011}.  A larger
+effort on database curation is needed. In addition, primer evaluation
+to find optimal primers for gene-targeted amplicon sequencing is also needed. One successful example of such an
 effort is \textit{nifH} coding for nitrogenase reductase
 \cite{gaby_comprehensive_2014,gaby_comprehensive_2012}.
 
@@ -606,55 +611,53 @@ effort is \textit{nifH} coding for nitrogenase reductase
 
 Although functional genes share some conserved regions (domains),
 there could be large variations among sequences, which could be
-further divided into subgroups. Note that SSU rRNA gene could also be
-divided into subgroups (phyla) but it is not necessary due to high
-sequence identity among all sequences. Functional genes are not as
-conserved as the SSU rRNA gene. Thus alignment and homology search are
+further divided into subgroups. Note that the SSU rRNA gene could also be
+divided into subgroups (phyla) but it is not usually necessary due to the high
+sequence identity among all sequences. However, functional genes are much less
+conserved than the SSU rRNA gene. Thus alignment and homology search are
 more accurate when subgroups are treated separately.
 
-We could be in two situations that sequences are not ideal as
-references for gene target analyzes for shotgun metagenome, depending
-on the completeness of our knowledge of a gene. The first case is that
+There are two cases where gene targeted analysis is suboptimal.
+The first case is that
 we are missing representative sequences from some subgroups, which
 leads to biased results on diversity. The nitrous oxide reductase
-(\textit{nosZ}) is such an example. There is a study discovering
-organisms that possess remote homologs of \textit{nosZ} in genomes,
-which are identified \textit{nosZ} clade II and the conventional
-\textit{nosZ} are renamed \textit{nosZ} clade I
+(\textit{nosZ}) is such an example: a study shows that there are
+at least two clades of \textit{nosZ} genes, with the second clade
+very understudied
 \cite{sanford_unexpected_2012}. Follow up studies show that clade II
-is very abundant in environment and its enzyme is more efficient in
-low nitrogen environment \cite{yoon_nitrous_2016}.  The other case is
+is very abundant in the environment and its enzyme is more efficient in
+low nitrogen environments \cite{yoon_nitrous_2016}.  The second case is
 that we are treating subgroups with significant sequence divergence as
 a group together, which can cause poor performances on gene search and
-sequence alignment. For example, \textit{nosZ} clade I and clade II
-should be treated separated in gene targeted analysis tools (Xander
-and SAT-Assembler).
+sequence alignment. For example, the \textit{nosZ} clade I and clade II
+should be treated separated by gene targeted analysis tools (Xander
+and SAT-Assembler). (@CTB evidence/details?)
 
 \textbf{Short read vs. contig }
 
-Both short reads and assembled contigs are used metagenomic studies
+Both short reads and assembled contigs are used in metagenomic studies
 \cite{fierer_cross-biome_2012,qin_human_2010,howe_tackling_2014}, but
 the latter are more common, since short reads are a challenge for
-annotation due to their short length and large data size. However, the
-assembled contigs have some key drawbacks. First, there are chimeras
-in assembled contigs. Despite that some can be resolved by paired end
-information, there is no method to verify the rest \textit{in
+annotation due to their short length and large data size (@CTB what? I
+don't think this is true. Citation/evidence?). However, the assembled
+contigs have some key drawbacks. First, there are chimeras in
+assembled contigs. Even though some can be resolved by paired end
+information, there is no method to verify them in general \textit{in
   silico}. Second, sequence variations from closely related strains
-are collapsed in the assembly process. Thus the assembled contigs are
-not suitable for SNP, primer design, or diversity analysis that
-involves fine taxonomy (species or strain) levels. Third, low coverage
-strains do not enough reads to assemble. All the above become more of
-a problem in complex metagenomes from environments such soil that have
-high diversity, many closely related strains and many strains with low
-coverage. Therefore, the longer contigs do not necessary provide
-better annotation, although the annotation from them do have higher
-confidence (lower e-value for homology search). On the other hand,
-read based methods do not have any of the above three issues by simply
-avoiding assembly process and thus remains valuable. Moreover, reads
-from second generation sequencing are shown to be long enough give
-reliable annotation using HMM based profile search
-\cite{zhang_metadomain:_2012}. Accordingly in the tools reviewed, one
-short reads based tool (SSUsearch) is included.
+are collapsed or ignored in the assembly process. Thus the assembled
+contigs are not suitable for SNP, primer design, or diversity analysis
+that involves fine taxonomy (species or strain) levels. Third, low
+coverage strains are often too low-coverage to assemble. All the above becomes
+a blocking problem in complex metagenomes from environments such as soil
+that contains not only high diversity but many closely related strains, and many
+strains with low coverage. Therefore, contigs may not sensitively represent
+the population,
+although the annotation from them
+do have higher confidence (lower e-value for homology search). On the
+other hand, read based methods do not encounter any of the above three
+issues. Moreover, reads from second generation sequencing are shown
+to be long enough give reliable annotation using HMM based profile
+search \cite{zhang_metadomain:_2012}.
 
 \textbf{Difficulty of read based method for some functional genes.}
 
@@ -664,17 +667,17 @@ of read based methods in functional genes, since reads from related
 genes are aligned to those domains and falsely increase the coverage
 and sequence variation. However, it is still possible to do read based
 analyzes by avoiding those conserved but not unique domains.
+(@CTB what? how? ;)
 
 \section{Summary and outlook}
 
 In sum, we review a few tools for gene targeted analyzes with shotgun
-metagenomes, EMIRGE, REAGO, and SSUsearch for SSU rRNA gene, and
-Xander and SAT-Assembler for functional genes (Table
-\ref{tab:toolSumm}). Further, we also discuss some significant issues
-related to gene targeted analyzes with shotgun metagenomes, including
-lacking of reference sequence databases and unidentified subgroups for
-functional genes, and difficulty of applying short read based methods
-on functional genes due to conserved but not domains.
+metagenomes (Table \ref{tab:toolSumm}). We also discuss some
+significant issues related to gene targeted analyzes with shotgun
+metagenomes, including the lack of reference sequence databases and
+the presence of unidentified subgroups for functional genes, and
+difficulty of applying short read based methods on functional genes
+due to widespread and highly conserved but non-specific domains.
 
 % Table generated by Excel2LaTeX from sheet 'Table1'
 \begin{table}[htbp]
