@@ -809,15 +809,21 @@ Unsupervised OTU analysis with shotgun data is not available in any current pipe
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.60\textwidth]{figs/chap2_figS2}
-  \caption[Testing the effect of target region size and variable region on clustering on a synthetic community]{Testing the effect of target region size and variable region on clustering on a synthetic community with 64 species with read length at about 100 bp. Subfigure A shows a distance cutoff of 4\% or 5\% is proper for all regions sizes from 50 bp to 160 bp in V4 (OTU number approached the species number 64 as indicated by the black line).  Subfigure B shows more details in the method used for subfigure A. Panel “Read Length cutoff” in B shows minimum read length was set to the target region size minus 5 bp if the region size was less than 100 bp, and 95 bp when the region size was longer than 100 bp. As a result, the number of reads aligned decreased as the target region size increased until 100 bp, and then the number of reads aligned increased with target region as shown in Panel “Mapped read number” in B. Panel “OTU number” in C shows OTU number at distance cutoff of 0.05 and our method works well from a 50 bp region to 160 bp region in V4. Subfigure C tests our unsupervised method on multiple hyper-variable regions (V2, V3, V4, V5, V6, V8) with region size of 120 bp (circle) and 80 bp (triangle). Panel “Mapped read number” in C shows the number of reads mapped to each chosen region. Panel “OTU number” in C shows the number of OTUs in each region at distance cutoff of 0.05. All regions have consistent mapped read number and OTUs except V3.}
-  \label{fig:chap2FigS2}
+  %\includegraphics[width=0.60\textwidth]{figs/chap2_figS2}
+  \includegraphics[scale=1]{figs/chap2_figS2}
 \end{figure}
+\clearpage
+\SingleSpacing
+\captionof{figure}[Testing the effect of target region size and variable region on clustering on a synthetic community]{Testing the effect of target region size and variable region on clustering on a synthetic community with 64 species with read length at about 100 bp. Subfigure A shows a distance cutoff of 4\% or 5\% is proper for all regions sizes from 50 bp to 160 bp in V4 (OTU number approached the species number 64 as indicated by the black line).  Subfigure B shows more details in the method used for subfigure A. Panel ``Read length cutoff'' in B shows minimum read length was set to the target region size minus 5 bp if the region size was less than 100 bp, and 95 bp when the region size was longer than 100 bp. As a result, the number of reads aligned decreased as the target region size increased until 100 bp, and then the number of reads aligned increased with target region as shown in Panel ``Mapped read number'' in B. Panel ``OTU number'' in C shows OTU number at distance cutoff of 0.05 and our method works well from a 50 bp region to 160 bp region in V4. Subfigure C tests our unsupervised method on multiple hyper-variable regions (V2, V3, V4, V5, V6, V8) with region size of 120 bp (circle) and 80 bp (triangle). Panel ``Mapped read number'' in C shows the number of reads mapped to each chosen region. Panel ``OTU number'' in C shows the number of OTUs in each region at distance cutoff of 0.05. All regions have consistent mapped read number and OTUs except V3.}
+\label{fig:chap2FigS2}
+\DoubleSpacing
+\bigskip
 
 
 \begin{figure}[tbph!]
   \centering
   \includegraphics[width=0.80\textwidth]{figs/chap2_figS3}
+  %\includegraphics[scale=1]{figs/chap2_figS3}
   \caption[Testing the effect of target region size on V4 of full-length SSU rRNA genes from a synthetic community]{Testing the effect of target region size on V4 of full-length SSU rRNA genes from a synthetic community with 64 species.}
   \label{fig:chap2FigS3}
 \end{figure}
@@ -827,11 +833,14 @@ Reproducibility between technical replicates is important and a basic feature of
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.60\textwidth]{figs/chap2_figS4}
-  \caption[Technical reproducibility test and comparison of OTU abundances between paired shotgun and amplicon data]{Technical reproducibility test of our unsupervised clustering and comparison of OTU abundances between paired shotgun and amplicon data. Subfigure A shows consistent OTU abundance profiles in two technical replicates (Pearson’s correlation coefficient is 0.997). X axis shows number of reads in each OTU in replicate SB1\_123, and y axis shows number of reads in each OTU in replicate SB1\_456. The size of circle is proportional to number of OTUs at the same location in the plot (with the same counts in SB1\_123 and also in SB1\_456).  The consistency of counts of each OTU in two replicates becomes better when the abundance of OTUs are higher. Subfigure B shows progressive dropout analysis of two technical replicates of shotgun data. There is significant correlation of counts of each OTU between technical replicates; X axis is the threshold of OTU abundance and y axis is the R2 of linear regression of log transformed OTU abundances in two replicates. OTUs with lower abundance than the thresholds (x axis) were discarded before regression analysis. Subfigure C and D shows comparison of OTU abundance profile between paired shotgun and amplicon data in bulk soil sample (SB1) and rhizosphere sample (M1), respectively. There is inconsistency between shotgun data and amplicon data in both samples. X axis shows number of SSU rRNA gene fragments in shotgun data per OTU in log scale, and y axis shows number of amplicon sequences in each OTU in log scale. The OTU abundance in both amplicon and shotgun data were increased by 1 to avoid 0 counts that can be displaced in log scale. The size of circle is proportional to number of OTUs with the same abundance in both types of data. There are OTUs with significantly different abundances in the two types of data (circles deviate from diagonal line). Pearson’s correlation between two types of data is 0.873 in SB1 and 0.581 in M1.}
-  \label{fig:chap2FigS4}
+  \includegraphics[scale=1]{figs/chap2_figS4}
 \end{figure}
-
+\clearpage
+\SingleSpacing
+\captionof{figure}[Technical reproducibility test and comparison of OTU abundances between paired shotgun and amplicon data]{Technical reproducibility test of our unsupervised clustering and comparison of OTU abundances between paired shotgun and amplicon data. Subfigure A shows consistent OTU abundance profiles in two technical replicates (Pearson’s correlation coefficient is 0.997). X axis shows number of reads in each OTU in replicate SB1\_123, and y axis shows number of reads in each OTU in replicate SB1\_456. The size of circle is proportional to number of OTUs at the same location in the plot (with the same counts in SB1\_123 and also in SB1\_456).  The consistency of counts of each OTU in two replicates becomes better when the abundance of OTUs are higher. Subfigure B shows progressive dropout analysis of two technical replicates of shotgun data. There is significant correlation of counts of each OTU between technical replicates; X axis is the threshold of OTU abundance and y axis is the R\textsuperscript{2} of linear regression of log transformed OTU abundances in two replicates. OTUs with lower abundance than the thresholds (x axis) were discarded before regression analysis. Subfigure C and D shows comparison of OTU abundance profile between paired shotgun and amplicon data in bulk soil sample (SB1) and rhizosphere sample (M1), respectively. There is inconsistency between shotgun data and amplicon data in both samples. X axis shows number of SSU rRNA gene fragments in shotgun data per OTU in log scale, and y axis shows number of amplicon sequences in each OTU in log scale. The OTU abundance in both amplicon and shotgun data were increased by 1 to avoid 0 counts that can be displaced in log scale. The size of circle is proportional to number of OTUs with the same abundance in both types of data. There are OTUs with significantly different abundances in the two types of data (circles deviate from diagonal line). Pearson’s correlation between two types of data is 0.873 in SB1 and 0.581 in M1.}
+\label{fig:chap2FigS4}
+\DoubleSpacing
+\bigskip
 
 We also compared OTU-based microbial community structures inferred from shotgun and amplicon SSU rRNA gene sequences. OTU abundances in shotgun and amplicon data, however, do not correlate as well (Pearson’s correlation coefficient of 0.87 for the bulk soil sample SB1 (\cref{fig:chap2FigS4}C) and 0.58 for the Miscanthus rhizosphere sample M1 (\cref{fig:chap2FigS4}D), showing that the amplicon and shotgun methods are not providing the same information. The classification of OTUs with total abundance higher than 10 and with ratio between two data type higher than five fold shows Verrucomicrobia were biased against in the bulk soil sample (SB1\_PT) amplified by V6-V8 primer, while they were biased to in the rhizosphere sample (M1\_PT) amplified by V4 primer. Actinobacteria was biased against in M1\_PT amplified by V4 primer (\cref{fig:chap2FigS5}).  The above results were consistent with the taxonomy-based comparison of the two data types (see below) that suggesting primer bias in amplicon data.
 
@@ -849,7 +858,7 @@ We applied ordination analysis to OTU tables from unsupervised analysis of corn 
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_fig1}
+  \includegraphics[width=1\textwidth]{figs/chap2_fig1}
   \caption[Ordination of amplicon and shotgun data from the same samples]{Principle coordinates analysis (PCoA) of amplicon and shotgun derived data from seven field replicates. There are significant differences between amplicon (filled) and shotgun (unfilled) derived data (along y-axis) and between corn (circle) and Miscanthus (square) rhizosphere samples (along x-axis), (AMOVA p-value < 0.001). PCoA was applied to OTU table resulting from clustering with shotgun data and amplicon data using 150bp of V4 region. Labels with suffix ``\_PT'' are amplicon data and others are shotgun data.}
   \label{fig:chap2Fig1}
 \end{figure}
@@ -857,7 +866,7 @@ We applied ordination analysis to OTU tables from unsupervised analysis of corn 
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_fig2}
+  \includegraphics[width=1\textwidth]{figs/chap2_fig2}
   \caption[Comparsion of ordination analysis with different variable regions]{Comparsion of ordination analysis with different variable regions. PCoA of OTUs from different SSU rRNA variable regions (V2, V4, V6, and V8) was applied on corn (filled markers, ``\_C'') and Miscanthus (unfilled markers, ``\_M'') rhizosphere samples. Different colors indicate the seven replicates. OTU tables from clustering of shotgun data using 150bp of V2, V4, V6 and V8 regions were used for PCoA and procrustes analysis in QIIME was used to transform the PCoA results from different regions and plot them in the same figure.}
   \label{fig:chap2Fig2}
 \end{figure}
@@ -865,7 +874,7 @@ We applied ordination analysis to OTU tables from unsupervised analysis of corn 
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_fig3}
+  \includegraphics[width=1\textwidth]{figs/chap2_fig3}
   \caption[Alpha diversity comparisons between corn and Miscanthus using V2, V4, V6 and V8 regions]{Alpha diversity comparisons between corn and Miscanthus using V2, V4, V6 and V8 regions. All variable regions showed Miscanthus is more diverse than corn, even though there was variation of diversity among rRNA gene regions. Alpha diversity was calculated with inverse Simpson using OTUs resulting from clustering with different variable regions.}
   \label{fig:chap2Fig3}
 \end{figure}
@@ -876,7 +885,7 @@ We compared the taxonomy-based microbial community structures inferred from shot
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_figS6}
+  \includegraphics[width=1\textwidth]{figs/chap2_figS6}
   \caption[Bacterial phylum profile comparison using different variable regions]{Bacterial phylum profile comparison using different variable regions. Different variable regions have similar taxonomy profiles, except that V6 has more unclassified sequences. The minimum Pearson’s correlation between the regions is 0.96. Classifications were done using SSU rRNA gene fragments from Miscanthus rhizosphere soil sample (M1) and SILVA database as reference.}
   \label{fig:chap2FigS6}
 \end{figure}
@@ -895,13 +904,28 @@ To take advantage of the fact that shotgun data is un-targeted, we retrieved and
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_figS7}
+  \includegraphics[width=1\textwidth]{figs/chap2_figS7}
   \caption[Taxonomy profile comparison at domain level using SSU and LSU rRNA genes]{Taxonomy profile comparison at domain level using SSU and LSU rRNA genes. For both the bulk soil sample (SB1) and rhizosphere sample (M1), SSU and LSU show consistent domain level taxonomy distribution (Pearson’s correlation coefficient = 1). ``\_LSU'' indicates taxonomy from LSU rRNA SILVA database and the rest are classified by SSU rRNA database.}
   \label{fig:chap2FigS7}
 \end{figure}
 
 
-\begin{table}[htbp]
+
+
+
+\begin{figure}[tbph!]
+  \centering
+  \includegraphics[scale=1]{figs/chap2_figS8}
+\end{figure}
+\clearpage
+\SingleSpacing
+\captionof{figure}[Bacterial phylum level taxonomy summary before and after SSU rRNA gene copy correction]{Bacterial phylum level taxonomy summary before and after SSU rRNA gene copy correction. Left vertical axis with bar plot shows percentage in total community, while right vertical axis with line plot shows fold change after copy number correction. Taxa with relative abundances of more than 0.1\% before copy correction were chosen and were ordered based on fold change. Subfigure A is for bulk soil sample (SB1) and B is for Miscanthus rhizosphere sample (M1).}
+\label{fig:chap2FigS8}
+\DoubleSpacing
+\bigbreak
+
+
+\begin{table}[phtb]
   \centering
   \caption[Fungi/bacteria ratio and percent of AMF fungi in rhizosphere and bulk soil samples]{Higher fungi/bacteria ratio and percent of AMF fungi are in rhizosphere sample (M1) than bulk sample (SB1).}
     \begin{tabular}{|l|r|r|r|r|}
@@ -923,15 +947,7 @@ To take advantage of the fact that shotgun data is un-targeted, we retrieved and
 
 \begin{figure}[tbph!]
   \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_figS8}
-  \caption[Bacterial phylum level taxonomy summary before and after SSU rRNA gene copy correction]{Bacterial phylum level taxonomy summary before and after SSU rRNA gene copy correction. Left vertical axis with bar plot shows percentage in total community, while right vertical axis with line plot shows fold change after copy number correction. Taxa with relative abundances of more than 0.1\% before copy correction were chosen and were ordered based on fold change. Subfigure A is for bulk soil sample (SB1) and B is for Miscanthus rhizosphere sample (M1).}
-  \label{fig:chap2FigS8}
-\end{figure}
-
-
-\begin{figure}[tbph!]
-  \centering
-  \includegraphics[width=0.80\textwidth]{figs/chap2_figS9}
+  \includegraphics[width=1\textwidth]{figs/chap2_figS9}
   \caption[Ordination plot of amplicon and shotgun derived data after copy correction]{Ordination plot of amplicon and shotgun derived data after copy correction. The plot is similar to the one without copy correction (\cref{fig:chap2Fig3}). There were significant differences in amplicon and shotgun derived data (y-axis) and of corn and Miscanthus rhizosphere samples (x-axis), (AMOVA p-value < 0.001), after copy number correction. PCoA was applied to OTU table resulting from de novo clustering with shotgun data and amplicon data using 150bp of V4 region. The filled markers (``\_PT'') are amplicon data and the unfilled markers are shotgun data.}
   \label{fig:chap2FigS9}
 \end{figure}
@@ -974,7 +990,7 @@ In this study, the LSU rRNA gene was used mainly as confirmation for SSU rRNA ge
 We developed a fast and efficient pipeline that enables unsupervised diversity analysis with Illumina shotgun data. The pipeline has the scalability to analyze large datasets (5 CPU hours for 38 Gb data, with 4.8 Gb peak memory) and can be run on most desktops with more than 5 GB of memory. Since SSU rRNA based community analysis is an important method in microbial ecology, this method can save projects with existing shotgun sequence data from the additional cost of SSU rRNA amplicon sequencing. Moreover, shotgun sequencing are not as affected by primer bias and chimeras as amplicon sequencing and thus can improve the measurement of microbial community structure. As read length and sequencing depth increases, longer and more SSU rRNA gene fragments can be recovered. Thus clustering and diversity analysis by this pipeline will become even more reliable.
 
 
-\chapter{Genomic and metagenomic comparison of \textit{rplB} and SSU rRNA gene species resolution}
+\chapter{Genomic and metagenomic comparison of \textit{\texorpdfstring{\MakeLowercase{rpl}B}{rplB}} and SSU \texorpdfstring{\MakeLowercase{r}RNA}{rRNA} gene in species resolution}
 
 \section{Introduction}
 
@@ -990,8 +1006,8 @@ Here, we use a single copy protein coding gene, \textit{rplB} (coding ribosomal 
 
 \textbf{Downloading bacterial genomes. }
 Bacterial genome assembly information from NCBI 
-(\url{ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/assembly\_summary.txt})
-was used to construct the url to download each genome based on instruction described this link (\url{http://www.ncbi.nlm.nih.gov/genome/doc/ftpfaq/\#allcomplete}). Command line ``wget'' was used to retrieve the genome sequences with urls from the above step.
+(\url{ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/assembly_summary.txt})
+was used to construct the url to download each genome based on instruction described this link (\url{http://www.ncbi.nlm.nih.gov/genome/doc/ftpfaq/#allcomplete}). Command line ``wget'' was used to retrieve the genome sequences with urls from the above step.
 
 \textbf{SSU rRNA gene and \textit{rplB} extraction and pairwise comparison. }
 SSU rRNA gene HMM (Hidden Mokov Model) from SSUsearch was used \cite{guo_microbial_2015}. Aligned nucleotide sequences of \textit{rplB} training set in RDP FunGene database were used to build HMM using hmmbuild command in HMMER (version 3.1b2) \cite{eddy_new_2009}. Then nhmmer command in HMMER was used to extract SSU rRNA gene and \textit{rplB} from all Bacterial genomes using score cutoff (-T) of 60. Next, nhmmer hits with more than 90\% of the model length were treated as target gene. For the purpose of comparing SSU rRNA gene distance and \textit{rplB} gene distance, only one copy of SSU rRNA gene is randomly picked for each genome. Pairwise comparison among gene sequences were done by vsearch (version 1.1.3) with ``--allpairs\_global --acceptall''. Then three species of interest including \textit{\textit{Rhizobium} leguminosarum}, \textit{Pseudomonas putida} and \textit{Escherichia coli} were chosen for closer examination of \textit{rplB} pairwise distances and SSU rRNA gene distances.
