@@ -16,7 +16,10 @@
 /*.pdf
 !/fig/*.pdf
 
+*.pptx
 bibdir
-dissertation-jiarong-guo.pdf
-main.tex-checkp-092216
+dissertation*
+main.tex-checkp-*
+main.bib-*
+main.rtf
 
